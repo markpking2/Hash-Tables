@@ -192,6 +192,34 @@ class TestHashTable(unittest.TestCase):
         return_value = ht.retrieve("key-9")
         self.assertTrue(return_value == "val-9")
 
+    def test_hash_table_auto_resize(self):
+        ht = HashTable(10)
+
+        ht.insert("key-0", "val-0")
+        self.assertTrue(ht.capacity == 10)
+        self.assertTrue(ht.size == 1)
+        ht.resize()
+        self.assertTrue(ht.capacity == 20)
+        self.assertTrue(ht.size == 1)
+        ht.insert("key-1", "val-1")
+        print(ht.capacity)
+        self.assertTrue(ht.capacity == 10)
+        self.assertTrue(ht.size == 2)
+        ht.insert("key-3", "val-3")
+        self.assertTrue(ht.size == 3)
+        self.assertTrue(ht.capacity == 10)
+        ht.insert("key-4", "val-4")
+        ht.insert("key-5", "val-5")
+        ht.insert("key-6", "val-6")
+        self.assertTrue(ht.size == 6)
+        self.assertTrue(ht.capacity == 10)
+        ht.insert("key-7", "val-7")
+        self.assertTrue(ht.size == 7)
+        self.assertTrue(ht.capacity == 10)
+        ht.insert("key-8", "val-8")
+        self.assertTrue(ht.size == 8)
+        self.assertTrue(ht.capacity == 20)
+
 
 if __name__ == '__main__':
     unittest.main()
